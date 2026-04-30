@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#082f49" />
+      <stop offset="100%" stop-color="#0f766e" />
+    </linearGradient>
+    <linearGradient id="board" x1="32" y1="10" x2="32" y2="54" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fde68a" />
+      <stop offset="35%" stop-color="#fb923c" />
+      <stop offset="68%" stop-color="#ef4444" />
+      <stop offset="100%" stop-color="#7c3aed" />
+    </linearGradient>
+  </defs>
+
+  <rect width="64" height="64" rx="14" fill="url(#bg)" />
+
+  <path
+    d="M32 10C39.5 15.5 44 26.5 44 38.5C44 46.5 39 53 32 54C25 53 20 46.5 20 38.5C20 26.5 24.5 15.5 32 10Z"
+    fill="url(#board)"
+  />
+  <path
+    d="M32 12.5C38.2 17.4 41.7 27.4 41.7 38.2C41.7 44.7 37.7 50.1 32 51.3C26.3 50.1 22.3 44.7 22.3 38.2C22.3 27.4 25.8 17.4 32 12.5Z"
+    fill="none"
+    stroke="rgba(255,255,255,0.22)"
+    stroke-width="1.6"
+  />
+  <path
+    d="M32 14.5V50"
+    fill="none"
+    stroke="rgba(255,255,255,0.75)"
+    stroke-width="1.6"
+    stroke-linecap="round"
+  />
+  <path
+    d="M22 31C26.5 28.8 29.5 31.6 32 30.6C35.8 29 39.2 29.5 44 27.8V34.8C39.1 36.6 35.8 36.1 32 37.6C29.3 38.7 26.4 36 20 38.2V31.9C20.7 31.7 21.3 31.4 22 31Z"
+    fill="rgba(255,255,255,0.18)"
+  />
+  <path
+    d="M32 54L29.7 61L32 59.6L34.3 61Z"
+    fill="#c4b5fd"
+  />
+</svg>
