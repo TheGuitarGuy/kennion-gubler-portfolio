@@ -6,10 +6,10 @@
     <script type="text/javascript">
       // Single Page Apps for GitHub Pages
       // https://github.com/rafgraph/spa-github-pages
-      // Keep the repository segment when deployed at username.github.io/repo-name
-      const pathSegmentsToKeep = 1
-
       const l = window.location
+      const isGithubIo = l.hostname.endsWith('.github.io')
+      // Keep repository segment for project pages, none for custom domains.
+      const pathSegmentsToKeep = isGithubIo ? 1 : 0
       l.replace(
         l.protocol +
           '//' +
@@ -33,4 +33,3 @@
   </head>
   <body></body>
 </html>
-
