@@ -2,6 +2,7 @@ import { useTheme } from '../context/ThemeContext'
 
 export default function Footer() {
   const { night, sunset } = useTheme()
+  const resumeUrl = `${import.meta.env.BASE_URL}Kennion_Gubler_Resume_2026.pdf`
 
   const label = { color: night ? 'rgba(0,200,255,0.5)' : sunset ? 'rgba(255,140,50,0.58)' : 'rgba(180,83,9,0.6)', transition: 'color 0.7s ease' }
   const body = { color: night ? '#8aadcc' : sunset ? 'rgba(255,180,130,0.75)' : '#57534e', transition: 'color 0.7s ease' }
@@ -32,7 +33,7 @@ export default function Footer() {
           <div className="flex flex-col gap-4">
             <p className="text-xs font-semibold tracking-[0.2em] uppercase mb-1" style={label}>Contact</p>
             {[
-              { label: 'Resume', href: '/Kennion_Gubler_Resume_2026.pdf', external: true },
+              { label: 'Resume', href: resumeUrl, external: true },
               { label: 'LinkedIn', href: 'https://www.linkedin.com/in/kennion-gubler/', external: true },
               { label: 'Email', href: 'mailto:kenniongubler@gmail.com', external: true },
             ].map(({ label: l, href, external }) => (

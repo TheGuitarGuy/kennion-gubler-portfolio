@@ -18,6 +18,7 @@ const VP = { once: false, amount: 0.25 }
 
 const C = { bg: '#FFFFFF', bgGray: '#F3F4F6', text: '#111827', muted: '#4A5568', accent: '#00875A', accentLight: 'rgba(0,135,90,0.1)' }
 const SLIDE_IDS = ['hero', 'demo', 'research', 'survey', 'wizard', 'discovery', 'target', 'control', 'adjustments', 'seamless', 'post-purchase', 'how']
+const BFM_DEMO_VIDEO = `${import.meta.env.BASE_URL}bfm_demo.mp4`
 
 function ProgressDots({ current }) {
   return (
@@ -118,7 +119,7 @@ export default function BuyForMeCaseStudy() {
               <motion.h2 variants={up} className="text-2xl md:text-5xl font-bold tracking-tight mb-4" style={{ color: C.text }}>How the flow works</motion.h2>
               <motion.p variants={up} className="text-base mb-8" style={{ color: C.muted }}>From product discovery to completed purchase, this is the end-to-end experience.</motion.p>
               <motion.div variants={up} className="w-full overflow-hidden rounded-xl shadow-2xl border border-gray-200" style={{ aspectRatio: '16/9' }}>
-                <video className="w-full h-full object-cover" autoPlay loop muted playsInline controls><source src="/bfm_demo.mp4" type="video/mp4" /></video>
+                <video className="w-full h-full object-cover" autoPlay loop muted playsInline controls><source src={BFM_DEMO_VIDEO} type="video/mp4" /></video>
               </motion.div>
             </motion.div>
           </div>

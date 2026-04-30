@@ -81,6 +81,7 @@ function TimeClock() {
 export default function Nav() {
   const { night, sunset, mode, toggle } = useTheme()
   const [menuOpen, setMenuOpen] = useState(false)
+  const resumeUrl = `${import.meta.env.BASE_URL}Kennion_Gubler_Resume_2026.pdf`
 
   const navLinks = [
     { label: 'Home', href: '#' },
@@ -128,7 +129,7 @@ export default function Nav() {
               </a>
             ))}
             <a
-              href="/Kennion_Gubler_Resume_2026.pdf"
+              href={resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm font-semibold tracking-wide px-4 py-1.5 transition-all duration-300"
@@ -222,7 +223,7 @@ export default function Nav() {
                 style={{ borderColor: night ? 'rgba(0,200,255,0.1)' : sunset ? 'rgba(255,120,50,0.12)' : 'rgba(231,229,228,0.8)' }}
               >
                 <a
-                  href="/Kennion_Gubler_Resume_2026.pdf"
+                  href={resumeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm font-semibold tracking-wide px-4 py-1.5"

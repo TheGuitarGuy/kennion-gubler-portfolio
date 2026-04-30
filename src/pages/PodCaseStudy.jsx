@@ -41,6 +41,7 @@ const C = {
 }
 
 const SLIDE_IDS = ['hero', 'problem', 'research', 'ideation', 'design-system', 'value-prop', 'screens', 'demo', 'takeaway']
+const POD_DEMO_VIDEO = `${import.meta.env.BASE_URL}pod_demo.mp4`
 
 function ProgressDots({ current }) {
   return (
@@ -381,7 +382,7 @@ export default function PodCaseStudy() {
                   playsInline
                   controls
                 >
-                  <source src="/pod_demo.mp4" type="video/mp4" />
+                  <source src={POD_DEMO_VIDEO} type="video/mp4" />
                 </video>
               </div>
             </motion.div>
