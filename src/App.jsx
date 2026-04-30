@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import Nav from './components/Nav'
@@ -18,8 +18,26 @@ import { useTheme } from './context/ThemeContext'
 function MiniPlayer() {
   const { playing, playerReady, trackInfo, toggle, nextTrack, prevTrack } = useSpotifyPlayer()
   const { night, sunset } = useTheme()
+  const location = useLocation()
+  const [heroVisible, setHeroVisible] = useState(true)
 
-  const show = playerReady
+  // On home page, hide when the first snap section (Hero) is in view
+  useEffect(() => {
+    if (location.pathname !== '/') {
+      setHeroVisible(false)
+      return
+    }
+
+    const container = document.getElementById('home-slides')
+    if (!container) { setHeroVisible(true); return }
+
+    const check = () => setHeroVisible(container.scrollTop < container.clientHeight * 0.5)
+    check()
+    container.addEventListener('scroll', check, { passive: true })
+    return () => container.removeEventListener('scroll', check)
+  }, [location.pathname])
+
+  const show = playerReady && !heroVisible
 
   const bg      = night   ? 'rgba(6,13,26,0.90)'    : sunset ? 'rgba(26,8,48,0.90)'    : 'rgba(253,248,242,0.90)'
   const border  = night   ? 'rgba(0,200,255,0.14)'   : sunset ? 'rgba(255,120,50,0.18)' : 'rgba(120,113,108,0.14)'
@@ -142,7 +160,6 @@ function Home() {
     if (location.state?.fromCaseStudy) {
       const targetSlug = location.state?.fromCaseStudySlug
       const targetId = targetSlug ? `card-${targetSlug}` : 'work'
-      // rAF ensures the DOM has painted before we scroll
       requestAnimationFrame(() => {
         const el = document.getElementById(targetId) || document.getElementById('work')
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })

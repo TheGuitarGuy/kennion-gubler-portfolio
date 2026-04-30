@@ -391,23 +391,21 @@ export default function Hero() {
             <motion.div variants={CONTAINER} initial="hidden" animate="show">
               <motion.p variants={ITEM} className="text-[10px] font-bold tracking-[0.28em] uppercase mb-1 transition-colors duration-700" style={{ color: night ? 'rgba(0,200,255,0.65)' : sunset ? 'rgba(255,140,50,0.82)' : 'rgba(180,83,9,0.7)' }}>Design Engineer & Builder</motion.p>
               <motion.p variants={ITEM} className="text-[10px] font-medium tracking-[0.22em] uppercase mb-6 transition-colors duration-700" style={{ color: night ? 'rgba(0,200,255,0.38)' : sunset ? 'rgba(255,140,50,0.46)' : 'rgba(180,83,9,0.42)' }}>San Jose, California</motion.p>
-              <motion.h1 variants={ITEM} className="text-[2.4rem] sm:text-[3.2rem] lg:text-[4.2rem] xl:text-[4.8rem] font-black leading-[1.04] tracking-tight mb-6 md:mb-8 transition-colors duration-700" style={{ color: night ? '#d0eeff' : sunset ? '#ffe8cc' : '#1c1917' }}>
+              <motion.h1 variants={ITEM} className="text-[11.5vw] xs:text-[2.8rem] sm:text-[3.2rem] lg:text-[4.2rem] xl:text-[4.8rem] font-black leading-[1.04] tracking-tight mb-6 md:mb-8 transition-colors duration-700 break-words" style={{ color: night ? '#d0eeff' : sunset ? '#ffe8cc' : '#1c1917' }}>
                 <span className={night ? 'gradient-night-text' : 'gradient-sunset-text'}>Designer.</span><br />Prototyper.<br />Builder.
               </motion.h1>
-              <motion.p variants={ITEM} className="text-[1.05rem] leading-relaxed max-w-md font-light mb-10 transition-colors duration-700" style={{ color: night ? 'rgba(180,210,240,0.7)' : sunset ? 'rgba(255,200,155,0.74)' : '#78716c' }}>I design and build products at the intersection of deep user empathy and measurable business outcomes, from 0-to-1 mobile apps to AI-powered commerce features.</motion.p>
-              <motion.div variants={ITEM} className="flex flex-wrap items-center gap-4">
-                <a href="#work" className="inline-flex items-center gap-2 px-7 py-3 text-sm font-bold tracking-wide transition-colors duration-700" style={{ background: night ? 'linear-gradient(125deg, #005a9e 0%, #0077cc 50%, #00aaff 100%)' : sunset ? 'linear-gradient(125deg, #b33508 0%, #d04818 50%, #e86030 100%)' : '#c2410c', color: '#fff' }}>View Work</a>
-                <a href="#about" className="inline-flex items-center gap-2 px-7 py-3 text-sm font-semibold tracking-wide transition-colors duration-700" style={{ border: night ? '1px solid rgba(0,200,255,0.3)' : sunset ? '1px solid rgba(255,140,50,0.4)' : '1px solid #d6d3d1', color: night ? 'rgba(0,200,255,0.8)' : sunset ? 'rgba(255,175,110,0.88)' : '#57534e' }}>About Me</a>
+              <motion.p variants={ITEM} className="text-[0.95rem] md:text-[1.05rem] leading-relaxed max-w-md font-light mb-10 transition-colors duration-700" style={{ color: night ? 'rgba(180,210,240,0.7)' : sunset ? 'rgba(255,200,155,0.74)' : '#78716c' }}>I design and build products at the intersection of deep user empathy and measurable business outcomes, from 0-to-1 mobile apps to AI-powered commerce features.</motion.p>
+              <motion.div variants={ITEM} className="flex flex-col xs:flex-row items-stretch xs:items-center gap-4 w-full xs:w-auto">
+                <a href="#work" className="inline-flex justify-center items-center gap-2 px-7 py-3.5 xs:py-3 text-[15px] xs:text-sm font-bold tracking-wide transition-colors duration-700 w-full xs:w-auto" style={{ background: night ? 'linear-gradient(125deg, #005a9e 0%, #0077cc 50%, #00aaff 100%)' : sunset ? 'linear-gradient(125deg, #b33508 0%, #d04818 50%, #e86030 100%)' : '#c2410c', color: '#fff' }}>View Work</a>
+                <a href="#about" className="inline-flex justify-center items-center gap-2 px-7 py-3.5 xs:py-3 text-[15px] xs:text-sm font-semibold tracking-wide transition-colors duration-700 w-full xs:w-auto" style={{ border: night ? '1px solid rgba(0,200,255,0.3)' : sunset ? '1px solid rgba(255,140,50,0.4)' : '1px solid #d6d3d1', color: night ? 'rgba(0,200,255,0.8)' : sunset ? 'rgba(255,175,110,0.88)' : '#57534e' }}>About Me</a>
               </motion.div>
             </motion.div>
 
             <motion.div initial={{ opacity: 0, y: 16, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.65, delay: 0.2, ease: [0.22, 1, 0.36, 1] }} className="flex justify-center lg:justify-end items-center">
               <div className="relative">
                 <div className="absolute -inset-16 -z-10 opacity-60 blur-3xl pointer-events-none transition-all duration-700" style={{ background: night ? 'radial-gradient(ellipse at center, rgba(0,200,255,0.15) 0%, rgba(0,100,200,0.08) 45%, transparent 70%)' : sunset ? 'radial-gradient(ellipse at center, rgba(255,100,30,0.26) 0%, rgba(180,30,80,0.13) 45%, transparent 70%)' : 'radial-gradient(ellipse at center, rgba(249,115,22,0.22) 0%, rgba(220,38,38,0.12) 45%, transparent 70%)' }} />
-                <div className="origin-top scale-[0.72] sm:scale-[0.86] lg:scale-100" style={{ marginBottom: 'calc((var(--tw-scale-y, 1) - 1) * 500px)' }}>
-
+                <div className="relative mt-8 md:mt-0 flex justify-center w-full">
                   <RecordPlayer />
-
                 </div>
               </div>
             </motion.div>

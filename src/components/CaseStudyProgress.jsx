@@ -101,7 +101,7 @@ function RewardModal({ onClose }) {
             href={realOneImg}
             download="party-sanderling.png"
             onClick={e => e.stopPropagation()}
-            className="px-7 py-3 text-xs font-black tracking-[0.2em] uppercase rounded-full mt-1 inline-flex items-center gap-2"
+            className="px-7 py-3 text-xs font-black tracking-[0.2em] uppercase rounded-full mt-1 inline-flex flex-col items-center gap-1.5"
             style={{
               background: `${c.accent}20`,
               color: c.accent,
@@ -111,12 +111,15 @@ function RewardModal({ onClose }) {
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
           >
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M12 3v12" />
-              <path d="m7 10 5 5 5-5" />
-              <path d="M5 21h14" />
-            </svg>
-            Download Party Sanderling (The most coveted collectible of 2026)
+            <div className="flex items-center gap-2">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M12 3v12" />
+                <path d="m7 10 5 5 5-5" />
+                <path d="M5 21h14" />
+              </svg>
+              <span>Download Party Sanderling</span>
+            </div>
+            <span className="text-[9px] font-bold opacity-80 tracking-widest">(The most coveted collectible of 2026)</span>
           </motion.a>
           <motion.button
             initial={{ opacity: 0 }}

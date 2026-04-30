@@ -165,7 +165,7 @@ function ShellBadge({ slug, collected }) {
 
   return (
     <div
-      className="relative w-9 h-9 md:w-10 md:h-10 rounded-full flex items-center justify-center shrink-0 transition-all duration-300"
+      className="relative w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center shrink-0 transition-all duration-300"
       style={{
         background: collected
           ? badge.gradient
@@ -182,7 +182,7 @@ function ShellBadge({ slug, collected }) {
         className="absolute inset-0 rounded-full pointer-events-none"
         style={{ background: 'radial-gradient(circle at 28% 22%, rgba(255,255,255,0.3) 0%, transparent 52%)' }}
       />
-      <svg viewBox="0 0 24 24" className="w-4 h-4 md:w-[18px] md:h-[18px]" fill="none" aria-hidden="true">
+      <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-[18px] md:h-[18px]" fill="none" aria-hidden="true">
         <ShellGlyph
           kind={badge.kind}
           fill={collected ? badge.shell : 'rgba(255,255,255,0.42)'}
@@ -257,10 +257,10 @@ export default function Work() {
           <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg-color)] via-transparent to-[var(--bg-color)] opacity-95 transition-colors duration-1000" />
         </div>
 
-        <div className="sticky top-20 md:top-24 z-[45] flex justify-center px-2 pointer-events-none mt-2 md:mt-4">
-          <div className="flex flex-col items-center pointer-events-auto scale-90 md:scale-100 origin-top">
+        <div className="sticky top-[4.25rem] md:top-24 z-[45] flex justify-center px-1 sm:px-2 pointer-events-none mt-1 md:mt-4">
+          <div className="flex flex-col items-center pointer-events-auto scale-[0.82] sm:scale-90 md:scale-100 origin-top">
             <div
-              className="flex items-center gap-4 px-5 py-2.5 rounded-full"
+              className="flex items-center gap-2.5 sm:gap-3 md:gap-4 px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 md:py-2.5 rounded-full"
               style={{
                 background: rewardBanner.panel,
                 border: `2px solid ${rewardBanner.border}`,
@@ -269,17 +269,17 @@ export default function Work() {
               }}
             >
               <div className="flex flex-col items-end text-right">
-                <span className="text-[10px] md:text-[11px] font-black uppercase tracking-widest" style={{ color: rewardBanner.accent }}>
+                <span className="text-[9px] sm:text-[10px] md:text-[11px] font-black uppercase tracking-[0.16em] sm:tracking-widest" style={{ color: rewardBanner.accent }}>
                   {collectedShells}/{CASE_STUDY_SLUGS.length} Explored
                 </span>
-                <span className="text-xs md:text-sm font-bold tracking-wide" style={{ color: rewardBanner.text, textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
+                <span className="hidden sm:block text-[10px] md:text-sm font-bold tracking-wide" style={{ color: rewardBanner.text, textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
                   Explore all to unlock award
                 </span>
               </div>
 
-              <div className="w-[2px] h-10 opacity-60 rounded-full" style={{ background: rewardBanner.border }} />
+              <div className="w-[2px] h-7 sm:h-8 md:h-10 opacity-60 rounded-full" style={{ background: rewardBanner.border }} />
 
-              <div className="flex items-center gap-2 md:gap-2.5" aria-label={`${collectedShells} of ${CASE_STUDY_SLUGS.length} shells collected`}>
+              <div className="flex items-center gap-1.5 sm:gap-2 md:gap-2.5" aria-label={`${collectedShells} of ${CASE_STUDY_SLUGS.length} shells collected`}>
                 {CASE_STUDY_SLUGS.map((slug, shellIndex) => (
                   <ShellBadge
                     key={slug}
@@ -297,9 +297,9 @@ export default function Work() {
           <div
             key={project.slug}
             id={`card-${project.slug}`}
-            className="relative z-10 h-screen snap-start snap-always flex items-center justify-center pt-28 pb-4 md:pt-36 md:pb-8 px-4 md:px-8"
+            className="relative z-10 min-h-[100svh] snap-start snap-always flex items-center justify-center pt-28 pb-16 md:pt-36 md:pb-20 px-4 md:px-8"
           >
-            <div className="w-full max-w-7xl mx-auto">
+            <div className="w-full max-w-7xl mx-auto h-full">
               <ProjectCard {...project} index={i} />
             </div>
           </div>

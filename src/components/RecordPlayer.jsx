@@ -4,7 +4,7 @@ import { useSpotifyPlayer, SC_PLAYLIST_URL } from '../context/SpotifyPlayerConte
 
 export default function RecordPlayer() {
   const { night, sunset } = useTheme()
-  const { playing, playerReady, trackInfo, toggle } = useSpotifyPlayer()
+  const { playing, playerReady, toggle } = useSpotifyPlayer()
 
   // Theme-aware colors
   const noteColor = night
@@ -25,18 +25,6 @@ export default function RecordPlayer() {
       ? 'rgba(0,0,0,0.32)'
       : 'rgba(255,255,255,0.7)'
 
-  const labelColor = night
-    ? 'rgba(0,200,255,0.55)'
-    : sunset
-      ? 'rgba(255,130,50,0.62)'
-      : 'rgba(180,83,9,0.6)'
-
-  const artistColor = night
-    ? '#c8ddf0'
-    : sunset
-      ? '#f8d8b8'
-      : '#44403c'
-
   const spotifyMetaColor = night
     ? 'rgba(200,221,240,0.56)'
     : sunset
@@ -56,16 +44,15 @@ export default function RecordPlayer() {
       : '1px solid rgba(120,113,108,0.12)'
 
   return (
-    <div className="flex flex-col items-center select-none">
-      <div className="relative w-[300px] h-[300px]">
+    <div className="flex flex-col items-center select-none w-[90vw] xs:w-[340px] max-w-[340px]">
+      <div className="relative w-[220px] h-[220px] xs:w-[260px] xs:h-[260px] sm:w-[300px] sm:h-[300px] mx-auto">
 
         {/* Handwriting Note & Arrow Layer */}
         <svg
-          viewBox="0 0 300 300"
-          width="300"
-          height="300"
           className="absolute inset-0 z-30 pointer-events-none overflow-visible"
-          style={{ overflow: 'visible' }}
+          viewBox="0 0 300 300"
+          width="100%"
+          height="100%"
           aria-hidden="true"
         >
           <defs>
@@ -168,77 +155,77 @@ export default function RecordPlayer() {
             onClick={toggle}
             title={playerReady ? (playing ? 'Pause' : 'Play') : 'Loading'}
           >
-            <svg viewBox="0 0 300 300" width="300" height="300" aria-hidden="true">
-            <defs>
-              <radialGradient id="vinylSheen" cx="35%" cy="28%" r="70%">
-                <stop offset="0%" stopColor="rgba(255,255,255,0.09)" />
-                <stop offset="40%" stopColor="rgba(255,255,255,0.025)" />
-                <stop offset="100%" stopColor="rgba(0,0,0,0)" />
-              </radialGradient>
+            <svg viewBox="0 0 300 300" width="100%" height="100%" aria-hidden="true">
+              <defs>
+                <radialGradient id="vinylSheen" cx="35%" cy="28%" r="70%">
+                  <stop offset="0%" stopColor="rgba(255,255,255,0.09)" />
+                  <stop offset="40%" stopColor="rgba(255,255,255,0.025)" />
+                  <stop offset="100%" stopColor="rgba(0,0,0,0)" />
+                </radialGradient>
 
-              <radialGradient id="labelGrad" cx="42%" cy="30%" r="75%">
-                <stop offset="0%" stopColor="#fbbf24" />
-                <stop offset="28%" stopColor="#f97316" />
-                <stop offset="55%" stopColor="#dc2626" />
-                <stop offset="80%" stopColor="#9d174d" />
-                <stop offset="100%" stopColor="#4c1d95" />
-              </radialGradient>
-            </defs>
+                <radialGradient id="labelGrad" cx="42%" cy="30%" r="75%">
+                  <stop offset="0%" stopColor="#fbbf24" />
+                  <stop offset="28%" stopColor="#f97316" />
+                  <stop offset="55%" stopColor="#dc2626" />
+                  <stop offset="80%" stopColor="#9d174d" />
+                  <stop offset="100%" stopColor="#4c1d95" />
+                </radialGradient>
+              </defs>
 
-            <circle cx="150" cy="150" r="148" fill="#111111" />
+              <circle cx="150" cy="150" r="148" fill="#111111" />
 
-            {[134, 122, 110, 99, 89, 79, 70, 62, 55].map((r, i) => (
+              {[134, 122, 110, 99, 89, 79, 70, 62, 55].map((r, i) => (
+                <circle
+                  key={r}
+                  cx="150"
+                  cy="150"
+                  r={r}
+                  fill="none"
+                  stroke="rgba(255,255,255,0.038)"
+                  strokeWidth={i % 3 === 0 ? 1.2 : 0.8}
+                />
+              ))}
+
+              <circle cx="150" cy="150" r="148" fill="url(#vinylSheen)" />
+              <circle cx="150" cy="150" r="42" fill="url(#labelGrad)" />
               <circle
-                key={r}
                 cx="150"
                 cy="150"
-                r={r}
+                r="42"
                 fill="none"
-                stroke="rgba(255,255,255,0.038)"
-                strokeWidth={i % 3 === 0 ? 1.2 : 0.8}
+                stroke="rgba(255,255,255,0.15)"
+                strokeWidth="0.8"
               />
-            ))}
 
-            <circle cx="150" cy="150" r="148" fill="url(#vinylSheen)" />
-            <circle cx="150" cy="150" r="42" fill="url(#labelGrad)" />
-            <circle
-              cx="150"
-              cy="150"
-              r="42"
-              fill="none"
-              stroke="rgba(255,255,255,0.15)"
-              strokeWidth="0.8"
-            />
+              <text
+                x="150"
+                y="145"
+                textAnchor="middle"
+                dominantBaseline="middle"
+                fontSize="9"
+                fontFamily="Inter, sans-serif"
+                fontWeight="700"
+                letterSpacing="3"
+                fill="rgba(255,255,255,0.55)"
+              >
+                KG
+              </text>
 
-            <text
-              x="150"
-              y="145"
-              textAnchor="middle"
-              dominantBaseline="middle"
-              fontSize="9"
-              fontFamily="Inter, sans-serif"
-              fontWeight="700"
-              letterSpacing="3"
-              fill="rgba(255,255,255,0.55)"
-            >
-              KG
-            </text>
+              <text
+                x="150"
+                y="157"
+                textAnchor="middle"
+                dominantBaseline="middle"
+                fontSize="5.5"
+                fontFamily="Inter, sans-serif"
+                fontWeight="400"
+                letterSpacing="1.5"
+                fill="rgba(255,255,255,0.35)"
+              >
+                CALIFORNIA
+              </text>
 
-            <text
-              x="150"
-              y="157"
-              textAnchor="middle"
-              dominantBaseline="middle"
-              fontSize="5.5"
-              fontFamily="Inter, sans-serif"
-              fontWeight="400"
-              letterSpacing="1.5"
-              fill="rgba(255,255,255,0.35)"
-            >
-              CALIFORNIA
-            </text>
-
-            <circle cx="150" cy="150" r="4.5" fill="#0a0a0a" />
+              <circle cx="150" cy="150" r="4.5" fill="#0a0a0a" />
 
               <AnimatePresence>
                 {!playing && (
@@ -264,8 +251,8 @@ export default function RecordPlayer() {
         {/* Tonearm - Solid rotating object */}
         <svg
           viewBox="0 0 300 300"
-          width="300"
-          height="300"
+          width="100%"
+          height="100%"
           className="absolute inset-0 pointer-events-none z-20 overflow-visible"
           style={{ overflow: 'visible' }}
           aria-hidden="true"
@@ -316,61 +303,8 @@ export default function RecordPlayer() {
         </svg>
       </div>
 
-      <div className="mt-7 text-center">
-        <p
-          className="text-[10px] font-semibold tracking-[0.22em] uppercase mb-2.5 transition-colors duration-700"
-          style={{ color: labelColor }}
-        >
-          {!playerReady ? 'Loading Player...' : playing ? 'Listening to...' : 'Paused'}
-        </p>
-
-        <div className="h-9 flex items-center justify-center gap-2 overflow-hidden">
-          <AnimatePresence mode="wait">
-            <motion.p
-              key={trackInfo.artist}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.38, ease: 'easeInOut' }}
-              className="text-xl font-semibold tracking-tight transition-colors duration-700"
-              style={{ color: artistColor }}
-            >
-              {trackInfo.artist}
-            </motion.p>
-          </AnimatePresence>
-
-          {playing && (
-            <div className="flex gap-0.5 items-end h-3 flex-shrink-0">
-              <motion.div
-                animate={{ height: [4, 9, 4] }}
-                transition={{ repeat: Infinity, duration: 0.8 }}
-                className="w-0.5 rounded-full"
-                style={{ background: labelColor }}
-              />
-              <motion.div
-                animate={{ height: [9, 4, 9] }}
-                transition={{ repeat: Infinity, duration: 0.8, delay: 0.2 }}
-                className="w-0.5 rounded-full"
-                style={{ background: labelColor }}
-              />
-              <motion.div
-                animate={{ height: [5, 10, 5] }}
-                transition={{ repeat: Infinity, duration: 0.8, delay: 0.4 }}
-                className="w-0.5 rounded-full"
-                style={{ background: labelColor }}
-              />
-            </div>
-          )}
-        </div>
-
-        <p
-          className="mt-1 text-[10px] font-medium uppercase tracking-[0.12em] opacity-50 max-w-[280px] mx-auto truncate"
-          style={{ color: artistColor }}
-        >
-          {trackInfo.title || ' '}
-        </p>
-
-        <div className="mt-6 flex justify-center">
+      <div className="mt-8 flex justify-center">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5, duration: 1 }}>
           <a
             href={SC_PLAYLIST_URL}
             target="_blank"
@@ -391,7 +325,7 @@ export default function RecordPlayer() {
             </svg>
             Open on SoundCloud
           </a>
-        </div>
+        </motion.div>
       </div>
     </div>
   )

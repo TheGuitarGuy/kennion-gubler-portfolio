@@ -51,7 +51,7 @@ function MetricBadge({ value }) {
 function TagBadge({ label }) {
   return (
     <span
-      className="inline-block text-[14px] font-black tracking-[0.12em] uppercase px-2.5 py-1 mr-1.5 mb-1.5"
+      className="inline-block text-[11px] sm:text-[14px] font-black tracking-[0.10em] sm:tracking-[0.12em] uppercase px-2 py-0.5 sm:px-2.5 sm:py-1 mr-1 mb-1 sm:mr-1.5 sm:mb-1.5"
       style={{
         border: `1px solid`,
         borderRadius: '4px',
@@ -184,83 +184,83 @@ export default function ProjectCard({
       ref={ref}
       animate={tideAnimate}
       transition={{ duration: 1.2, ease: 'easeOut' }}
-      className="relative w-full h-full max-w-[1120px] xl:max-w-[1180px] 2xl:max-w-[1240px] mx-auto px-2 sm:px-4 lg:px-6 overflow-visible min-h-[720px] sm:min-h-[780px] lg:min-h-[840px]"
+      className="relative w-full h-full max-w-[1120px] xl:max-w-[1180px] 2xl:max-w-[1240px] mx-auto px-2 sm:px-4 lg:px-6 sm:min-h-[780px] lg:min-h-[840px]"
       style={{ willChange: 'transform, opacity' }}
     >
       <DriftwoodFrame index={cardIndex}>
         {/* Inner safe-area container keeps all content away from wood edges */}
-        <div className="relative z-10 h-full w-full px-4 sm:px-10 lg:px-16 py-6 sm:py-10 lg:py-16 flex items-center justify-center">
-          <div className="origin-center w-[125%] h-[125%] scale-[0.8] sm:w-[110%] sm:h-[110%] sm:scale-[0.9] lg:w-full lg:h-full lg:scale-100">
+        <div className="relative z-10 h-full w-full px-3 sm:px-10 lg:px-16 py-3 sm:py-10 lg:py-16 flex items-center justify-center">
+          <div className="w-full sm:origin-center sm:w-[110%] sm:h-[110%] sm:scale-[0.9] lg:w-full lg:h-full lg:scale-100">
             <div
-              className="relative z-10 grid grid-cols-1 lg:grid-cols-[minmax(0,1.12fr)_minmax(0,0.88fr)] xl:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] gap-6 lg:gap-10 group h-full mx-auto max-w-[98%] lg:max-w-[92%] px-2 sm:px-4 lg:px-6 py-4 sm:py-8 lg:py-10"
+              className="relative z-10 grid grid-cols-2 sm:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:grid-cols-[minmax(0,1.12fr)_minmax(0,0.88fr)] xl:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] gap-2 sm:gap-6 lg:gap-10 group h-full mx-auto max-w-[98%] lg:max-w-[92%] px-1 sm:px-4 lg:px-6 py-2 sm:py-8 lg:py-10"
             >
               {/* Left — Content */}
-              <div className="relative z-10 flex flex-col justify-center h-full px-4 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8 min-w-0 max-w-[44rem] max-h-full overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-            <p className="text-[16px] font-black tracking-[0.24em] uppercase mb-5" style={engravedTextStyle}>
-              {String(cardIndex + 1).padStart(2, '0')}
-            </p>
+              <div className="relative z-10 flex flex-col justify-center h-full px-1 py-1 sm:px-6 sm:py-6 lg:px-8 lg:py-8 min-w-0 max-w-[44rem] max-h-full">
+                <p className="text-[10px] sm:text-[16px] font-black tracking-[0.20em] sm:tracking-[0.24em] uppercase mb-1 sm:mb-5" style={engravedTextStyle}>
+                  {String(cardIndex + 1).padStart(2, '0')}
+                </p>
 
-            <h2 className="text-4xl lg:text-5xl font-black tracking-tight mb-3" style={engravedTextStyle}>
-              {title}
-            </h2>
+                <h2 className="text-lg sm:text-3xl lg:text-5xl font-black tracking-tight mb-1 sm:mb-3 leading-tight" style={engravedTextStyle}>
+                  {title}
+                </h2>
 
-            <p className="text-xl font-bold tracking-wide mb-5" style={engravedTextStyle}>
-              {subtitle}
-            </p>
+                <p className="hidden sm:block sm:text-base xl:text-xl font-bold tracking-wide mb-2 sm:mb-5 leading-snug" style={engravedTextStyle}>
+                  {subtitle}
+                </p>
 
-            {description && (
-            <p className="text-[18px] leading-relaxed mb-6 max-w-md font-semibold" style={engravedTextStyle}>
-                {description}
-              </p>
-            )}
+                {description && (
+                  <p className="hidden sm:block text-[18px] leading-relaxed mb-6 max-w-md font-semibold" style={engravedTextStyle}>
+                    {description}
+                  </p>
+                )}
 
-            <div className="mb-5">
-              {metrics.map((m, i) => (
-                <MetricBadge key={i} value={m} />
-              ))}
-            </div>
+                <div className="mb-2 sm:mb-5">
+                  {metrics.map((m, i) => (
+                    <MetricBadge key={i} value={m} />
+                  ))}
+                </div>
 
-            <div className="mb-8">
-              {tags.map((t, i) => (
-                <TagBadge key={i} label={t} />
-              ))}
-            </div>
+                <div className="hidden sm:block mb-3 sm:mb-8">
+                  {tags.map((t, i) => (
+                    <TagBadge key={i} label={t} />
+                  ))}
+                </div>
 
-            <div className="grid grid-cols-1 gap-3 mt-2 pt-2 w-full min-w-0 sm:max-w-[26rem]">
-              <Link
-                to={caseStudyHref}
-                className="block w-full min-w-0 px-4 sm:px-5 py-3 min-h-[3.25rem] text-[13px] sm:text-[14px] font-black tracking-[0.06em] sm:tracking-[0.08em] uppercase transition-all max-w-full break-words whitespace-normal text-center leading-snug"
-                style={{
-                  ...cardButtonStyle,
-                  borderWidth: '2px',
-                  backgroundColor: 'rgba(255, 238, 214, 0.68)',
-                }}
-                onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(255, 244, 226, 0.84)'}
-                onMouseLeave={e => e.currentTarget.style.backgroundColor = 'rgba(255, 238, 214, 0.68)'}
-              >
-                View Case Study
-              </Link>
-              {liveHref && (
-                <a
-                  href={liveHref}
-                  className="block w-full min-w-0 px-4 sm:px-5 py-3 min-h-[3.25rem] text-[13px] sm:text-[14px] font-black tracking-[0.06em] sm:tracking-[0.08em] uppercase transition-all max-w-full break-words whitespace-normal text-center leading-snug"
-                  style={{
-                    ...cardButtonStyle,
-                    borderWidth: '2px',
-                    backgroundColor: 'rgba(255,255,255,0.1)',
-                  }}
-                  onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(42, 18, 6, 0.2)'}
-                  onMouseLeave={e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'}
-                >
-                  {liveLabel}
-                </a>
-              )}
-            </div>
+                <div className="grid grid-cols-1 gap-2 sm:gap-3 mt-1 sm:mt-2 pt-1 sm:pt-2 w-full min-w-0 sm:max-w-[26rem]">
+                  <Link
+                    to={caseStudyHref}
+                    className="block w-full min-w-0 px-2 sm:px-5 py-2 sm:py-3 min-h-[2.5rem] sm:min-h-[3.25rem] text-[10px] sm:text-[14px] font-black tracking-[0.04em] sm:tracking-[0.08em] uppercase transition-all max-w-full whitespace-nowrap text-center leading-snug"
+                    style={{
+                      ...cardButtonStyle,
+                      borderWidth: '2px',
+                      backgroundColor: 'rgba(255, 238, 214, 0.68)',
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(255, 244, 226, 0.84)'}
+                    onMouseLeave={e => e.currentTarget.style.backgroundColor = 'rgba(255, 238, 214, 0.68)'}
+                  >
+                    View Case Study
+                  </Link>
+                  {liveHref && (
+                    <a
+                      href={liveHref}
+                      className="hidden sm:block w-full min-w-0 px-4 sm:px-5 py-2 sm:py-3 min-h-[2.5rem] sm:min-h-[3.25rem] text-[12px] sm:text-[14px] font-black tracking-[0.06em] sm:tracking-[0.08em] uppercase transition-all max-w-full break-words whitespace-normal text-center leading-snug"
+                      style={{
+                        ...cardButtonStyle,
+                        borderWidth: '2px',
+                        backgroundColor: 'rgba(255,255,255,0.1)',
+                      }}
+                      onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(42, 18, 6, 0.2)'}
+                      onMouseLeave={e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'}
+                    >
+                      {liveLabel}
+                    </a>
+                  )}
+                </div>
               </div>
 
               {/* Right — Image / Mockups */}
               <div
-                className={`relative z-10 flex items-center justify-center min-h-[220px] sm:min-h-[300px] h-full min-w-0 ${!image ? 'gap-6' : ''}`}
+                className={`relative z-10 flex items-center justify-center min-h-0 sm:min-h-[300px] h-full min-w-0 ${!image ? 'gap-6' : ''}`}
               >
                 {image ? (
                   <motion.div
@@ -271,7 +271,7 @@ export default function ProjectCard({
                     {macbook ? (
                       <MacbookFrame src={image} alt={title} compact isInView={isInView} />
                     ) : (
-                      <img src={image} alt={title} className="w-full object-contain max-h-[240px] sm:max-h-[380px] drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]" />
+                      <img src={image} alt={title} className="w-full object-contain max-h-[180px] sm:max-h-[380px] drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]" />
                     )}
                   </motion.div>
                 ) : (
