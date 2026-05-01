@@ -293,7 +293,7 @@ function ShoreSanderlings() {
   ]
 
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+    <div className="absolute top-0 left-0 w-full h-[100svh] pointer-events-none overflow-hidden">
       <TideWave flockTrigger={flockTrigger} />
       {birds.map((bird, i) => <ShoreSanderling key={i} {...bird} flockTrigger={flockTrigger} />)}
     </div>
@@ -359,7 +359,7 @@ function NightJellies() {
     { left: '72%', bottom: '6rem', scale: 0.38, delay: 9, driftRange: 50 },
     { left: '90%', bottom: '4rem', scale: 0.50, delay: 12, driftRange: 75 }
   ]
-  return <div className="absolute inset-0 pointer-events-none z-[3] overflow-hidden">{jellies.map((j, i) => <Jellyfish key={i} {...j} />)}</div>
+  return <div className="absolute top-0 left-0 w-full h-[100svh] pointer-events-none z-[3] overflow-hidden">{jellies.map((j, i) => <Jellyfish key={i} {...j} />)}</div>
 }
 
 export default function Hero() {
@@ -369,14 +369,14 @@ export default function Hero() {
 
   return (
     <>
-      <section id="home-hero" className="relative min-h-screen snap-start snap-always flex items-center pt-16 overflow-hidden" style={{ background: night ? '#060d1a' : sunset ? '#1a0830' : '#fdf8f2', transition: 'background 0.7s ease' }}>
+      <section id="home-hero" className="relative min-h-[100svh] snap-start snap-always flex items-center pt-16 overflow-hidden" style={{ background: night ? '#060d1a' : sunset ? '#1a0830' : '#fdf8f2', transition: 'background 0.7s ease' }}>
         <motion.div className="absolute inset-0 pointer-events-none z-0" animate={{ opacity: night ? 0 : sunset ? 0.45 : 1 }} transition={{ duration: 0.8 }} style={{ background: `radial-gradient(ellipse at 82% 14%, rgba(251,146,60,0.13) 0%, rgba(220,38,38,0.07) 38%, transparent 60%), radial-gradient(ellipse at 18% 80%, rgba(245,158,11,0.08) 0%, transparent 48%), radial-gradient(ellipse at 50% 95%, rgba(14,116,144,0.10) 0%, rgba(8,145,178,0.05) 40%, transparent 65%)` }} />
         <motion.div className="absolute inset-0 pointer-events-none z-0" animate={{ opacity: night ? 1 : 0 }} transition={{ duration: 1 }} style={{ background: `radial-gradient(ellipse at 70% 90%, rgba(0,200,255,0.18) 0%, rgba(0,100,200,0.10) 40%, transparent 65%), radial-gradient(ellipse at 15% 60%, rgba(245,158,11,0.08) 0%, transparent 40%), radial-gradient(ellipse at 50% 0%, rgba(0,50,100,0.4) 0%, transparent 60%), linear-gradient(180deg, #060d1a 0%, #071424 60%, #05101e 100%)` }} />
         <motion.div className="absolute inset-0 pointer-events-none z-0" animate={{ opacity: sunset ? 1 : 0 }} transition={{ duration: 1 }} style={{ background: `radial-gradient(ellipse at 60% 95%, rgba(255,115,25,0.62) 0%, rgba(195,50,18,0.4) 32%, transparent 62%), radial-gradient(ellipse at 22% 82%, rgba(155,20,68,0.44) 0%, transparent 48%), radial-gradient(ellipse at 14% 22%, rgba(62,8,110,0.38) 0%, transparent 54%), radial-gradient(ellipse at 90% 18%, rgba(38,5,78,0.5) 0%, transparent 52%)` }} />
 
         {night && <NightStars />}
 
-        <div className="absolute inset-0 pointer-events-none z-[1] overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-[100svh] pointer-events-none z-[1] overflow-hidden">
           <svg style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', display: 'block' }} viewBox="0 0 1440 220" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M0,220 L0,108 C100,78 220,122 400,88 C580,54 740,105 920,76 C1080,50 1220,96 1360,72 C1410,62 1430,76 1440,70 L1440,220 Z" fill={night ? 'rgba(0,80,160,0.28)' : sunset ? 'rgba(100,25,145,0.28)' : 'rgba(217,119,6,0.17)'} style={{ transition: 'fill 0.7s ease' }} />
             <path d="M0,220 L0,148 C90,126 210,162 380,138 C550,114 720,158 900,132 C1060,110 1200,148 1360,126 C1410,116 1430,132 1440,124 L1440,220 Z" fill={night ? 'rgba(0,40,100,0.45)' : sunset ? 'rgba(55,10,100,0.42)' : 'rgba(146,64,14,0.26)'} style={{ transition: 'fill 0.7s ease' }} />

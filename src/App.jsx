@@ -39,15 +39,15 @@ function MiniPlayer() {
 
   const show = playerReady && !heroVisible
 
-  const bg      = night   ? 'rgba(6,13,26,0.90)'    : sunset ? 'rgba(26,8,48,0.90)'    : 'rgba(253,248,242,0.90)'
-  const border  = night   ? 'rgba(0,200,255,0.14)'   : sunset ? 'rgba(255,120,50,0.18)' : 'rgba(120,113,108,0.14)'
-  const accent  = night   ? 'rgba(0,200,255,0.72)'   : sunset ? 'rgba(255,140,50,0.78)' : 'rgba(180,83,9,0.7)'
-  const primary = night   ? '#c8ddf0'                : sunset ? '#f8d8b8'               : '#44403c'
+  const bg = night ? 'rgba(6,13,26,0.90)' : sunset ? 'rgba(26,8,48,0.90)' : 'rgba(253,248,242,0.90)'
+  const border = night ? 'rgba(0,200,255,0.14)' : sunset ? 'rgba(255,120,50,0.18)' : 'rgba(120,113,108,0.14)'
+  const accent = night ? 'rgba(0,200,255,0.72)' : sunset ? 'rgba(255,140,50,0.78)' : 'rgba(180,83,9,0.7)'
+  const primary = night ? '#c8ddf0' : sunset ? '#f8d8b8' : '#44403c'
   const controlBg = night ? 'rgba(5,14,24,0.72)' : sunset ? 'rgba(56,21,42,0.65)' : 'rgba(255,255,255,0.74)'
   const controlBorder = night ? 'rgba(0,200,255,0.22)' : sunset ? 'rgba(255,140,50,0.28)' : 'rgba(120,113,108,0.25)'
-  const labelBg = night   ? 'radial-gradient(circle at 38% 38%, #0099cc, #004d80)'
-                : sunset  ? 'radial-gradient(circle at 38% 38%, #e05820, #7a1830)'
-                :           'radial-gradient(circle at 38% 38%, #f97316, #b91c1c)'
+  const labelBg = night ? 'radial-gradient(circle at 38% 38%, #0099cc, #004d80)'
+    : sunset ? 'radial-gradient(circle at 38% 38%, #e05820, #7a1830)'
+      : 'radial-gradient(circle at 38% 38%, #f97316, #b91c1c)'
 
   return (
     <AnimatePresence>
@@ -58,7 +58,7 @@ function MiniPlayer() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 16, scale: 0.94 }}
           transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-2xl cursor-pointer select-none"
+          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 hidden md:flex items-center gap-3 px-4 py-3 rounded-2xl cursor-pointer select-none"
           style={{
             background: bg,
             border: `1px solid ${border}`,
@@ -200,12 +200,12 @@ export default function App() {
   return (
     <>
       <Routes>
-        <Route path="/"          element={<Home />} />
-        <Route path="/ember"     element={<EmberCaseStudy />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/ember" element={<EmberCaseStudy />} />
         <Route path="/buy-for-me" element={<BuyForMeCaseStudy />} />
-        <Route path="/pod"       element={<PodCaseStudy />} />
+        <Route path="/pod" element={<PodCaseStudy />} />
         <Route path="/askcr-bfm" element={<AskCRCaseStudy />} />
-        <Route path="/chatgpt"   element={<ChatGPTCaseStudy />} />
+        <Route path="/chatgpt" element={<ChatGPTCaseStudy />} />
       </Routes>
       <MiniPlayer />
     </>
