@@ -4,6 +4,10 @@
 
 @layer base {
   html {
+    /* Force 1rem to strictly equal 16px, overriding any production scaling quirks */
+    font-size: 16px !important;
+    -webkit-text-size-adjust: 100%;
+
     /* overflow-x: clip avoids body becoming the viewport scroll container,
        keeping html as the snap root. scroll-behavior removed so browser
        handles snap transitions natively (smooth via snap, not CSS). */
@@ -49,6 +53,7 @@
 }
 
 @layer utilities {
+
   /* California sunset — burnt sienna → coral red → fuchsia → deep amber */
   .gradient-sunset {
     background: linear-gradient(135deg, #92400e 0%, #c2410c 25%, #dc2626 50%, #be185d 75%, #d97706 100%);
@@ -77,16 +82,30 @@
     background-color: #fdf8f2;
   }
 
-  .text-seafoam   { color: #2a9d8f; }
-  .border-seafoam { border-color: #2a9d8f; }
-  .bg-seafoam     { background-color: #2a9d8f; }
+  .text-seafoam {
+    color: #2a9d8f;
+  }
 
-  .text-warm      { color: #78716c; }
-  .text-warm-dark { color: #44403c; }
+  .border-seafoam {
+    border-color: #2a9d8f;
+  }
+
+  .bg-seafoam {
+    background-color: #2a9d8f;
+  }
+
+  .text-warm {
+    color: #78716c;
+  }
+
+  .text-warm-dark {
+    color: #44403c;
+  }
 
   .hover-card-glow {
     transition: box-shadow 0.45s ease, transform 0.45s ease;
   }
+
   .hover-card-glow:hover {
     box-shadow:
       0 0 80px rgba(194, 65, 12, 0.06),
@@ -98,13 +117,14 @@
   /* Vinyl record shadow */
   .record-shadow {
     border-radius: 9999px;
-    box-shadow: 0 20px 48px rgba(0,0,0,0.45), 0 4px 12px rgba(0,0,0,0.3);
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45), 0 4px 12px rgba(0, 0, 0, 0.3);
   }
 
   @keyframes vinylSpin {
     from {
       transform: translateZ(0) rotate(0deg);
     }
+
     to {
       transform: translateZ(0) rotate(360deg);
     }
