@@ -4,8 +4,8 @@
 
 @layer base {
   html {
-    /* Force 1rem to strictly equal 16px, overriding any production scaling quirks */
-    font-size: 16px !important;
+    /* Globally scales down 1rem by 10%, perfectly mimicking 90% browser zoom */
+    font-size: 90% !important;
     -webkit-text-size-adjust: 100%;
 
     /* overflow-x: clip avoids body becoming the viewport scroll container,

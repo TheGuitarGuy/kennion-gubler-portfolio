@@ -4,7 +4,7 @@ import { useSpotifyPlayer, SC_PLAYLIST_URL } from '../context/SpotifyPlayerConte
 
 export default function RecordPlayer() {
   const { night, sunset } = useTheme()
-  const { playing, playerReady, toggle } = useSpotifyPlayer()
+  const { playing, playerReady, trackInfo, toggle } = useSpotifyPlayer()
 
   // Theme-aware colors
   const noteColor = night
@@ -30,6 +30,12 @@ export default function RecordPlayer() {
     : sunset
       ? 'rgba(255,195,155,0.62)'
       : 'rgba(87,83,78,0.68)'
+
+  const trackTitleColor = night
+    ? '#d4ebff'
+    : sunset
+      ? '#ffe4cc'
+      : '#2f241b'
 
   const embedShellBg = night
     ? 'rgba(10,21,37,0.68)'
@@ -303,7 +309,19 @@ export default function RecordPlayer() {
         </svg>
       </div>
 
-      <div className="mt-8 flex justify-center">
+      <div className="mt-10 sm:mt-11 w-full text-center px-3">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.2em]" style={{ color: spotifyMetaColor }}>
+          Now Playing
+        </div>
+        <div className="mt-1 text-base font-semibold tracking-tight truncate" style={{ color: trackTitleColor }}>
+          {trackInfo?.title || 'Unknown Track'}
+        </div>
+        <div className="mt-0.5 text-xs uppercase tracking-[0.08em] truncate" style={{ color: spotifyMetaColor }}>
+          {trackInfo?.artist || 'Unknown Artist'}
+        </div>
+      </div>
+
+      <div className="mt-3 flex justify-center">
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5, duration: 1 }}>
           <a
             href={SC_PLAYLIST_URL}
