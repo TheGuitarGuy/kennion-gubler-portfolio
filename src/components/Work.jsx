@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import ProjectCard from './ProjectCard'
 import CaseStudyProgress from './CaseStudyProgress'
 import { useTheme } from '../context/ThemeContext'
@@ -15,7 +16,7 @@ const projects = [
     title: 'CR ChatGPT App',
     subtitle: 'Helping consumers find trusted information for purchases in ChatGPT.',
     metrics: [],
-    tags: ['AI / LLM', 'Commerce', 'Web', 'Figma', 'Prototyping'],
+    tags: ['AI / LLM', 'Commerce'],
     caseStudyHref: '/chatgpt',
     liveHref: '#',
     liveLabel: 'VIEW LIVE →',
@@ -25,10 +26,10 @@ const projects = [
   },
   {
     slug: 'buy-for-me',
-    title: "CR 'Buy for Me' Feature",
+    title: "CR Buy for Me",
     subtitle: 'Reducing purchase friction from discovery to checkout.',
     metrics: [],
-    tags: ['E-Commerce', 'AI Agent', 'Mobile Web', 'A/B Testing'],
+    tags: ['E-Commerce', 'AI Agent', 'Mobile Web'],
     caseStudyHref: '/buy-for-me',
     liveHref: '#',
     liveLabel: 'VIEW LIVE →',
@@ -40,7 +41,7 @@ const projects = [
     title: "Buy for Me in AskCR",
     subtitle: 'Turning CR recommendations into completed purchases.',
     metrics: [],
-    tags: ['AI Agent', 'E-Commerce', 'AskCR', 'Web', 'Agentic UX'],
+    tags: ['AI Agent', 'E-Commerce'],
     caseStudyHref: '/askcr-bfm',
     liveHref: '#',
     liveLabel: 'VIEW LIVE →',
@@ -53,7 +54,7 @@ const projects = [
     title: 'Ember Fitness',
     subtitle: 'Building an intuitive fitness companion for lasting habits.',
     metrics: [],
-    tags: ['iOS', 'Gen AI', 'Swift', 'Figma', '0→1'],
+    tags: ['iOS', 'AR/VR', 'Swift'],
     caseStudyHref: '/ember',
     liveHref: '#',
     liveLabel: 'VIEW LIVE (IN APP) →',
@@ -65,7 +66,7 @@ const projects = [
     title: 'Pod Dating',
     subtitle: 'Rethinking how people form real connections.',
     metrics: [],
-    tags: ['iOS', 'Social', 'Swift', 'Figma', '0→1'],
+    tags: ['iOS', 'Social', 'Swift'],
     caseStudyHref: '/pod',
     liveHref: '#',
     liveLabel: 'VIEW LIVE (IN APP) →',
@@ -257,9 +258,18 @@ export default function Work() {
           <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg-color)] via-transparent to-[var(--bg-color)] opacity-95 transition-colors duration-1000" />
         </div>
 
-        <div className="sticky top-[4.25rem] md:top-24 z-[45] flex justify-center px-1 sm:px-2 pointer-events-none mt-1 md:mt-4">
+        {/* Adjusted top padding to pull it up slightly on desktop */}
+        <div className="sticky top-[4.25rem] md:top-20 z-[45] flex justify-center px-1 sm:px-2 pointer-events-none mt-2">
           <div className="flex flex-col items-center pointer-events-auto scale-[0.82] sm:scale-90 md:scale-100 origin-top">
-            <div
+            <motion.div
+              initial={{ x: -120, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{
+                type: "spring",
+                stiffness: 100,
+                damping: 15,
+                delay: 0.6 // Slides in gracefully shortly after page load
+              }}
               className="flex items-center gap-2.5 sm:gap-3 md:gap-4 px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 md:py-2.5 rounded-full"
               style={{
                 background: rewardBanner.panel,
@@ -288,16 +298,16 @@ export default function Work() {
                   />
                 ))}
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
 
-        {/* Each card is a full-viewport snap stop in the main page scroll */}
+        {/* Each card is a full-viewport snap stop in the main page scroll. Increased pt on md/lg to clear the badge. */}
         {projects.map((project, i) => (
           <div
             key={project.slug}
             id={`card-${project.slug}`}
-            className="relative z-10 min-h-[100svh] snap-start snap-always flex items-center justify-center pt-28 pb-16 md:pt-36 md:pb-20 px-4 md:px-8"
+            className="relative z-10 h-[100svh] overflow-hidden snap-start snap-always flex items-center justify-center pt-44 pb-12 sm:pt-44 sm:pb-16 md:pt-48 md:pb-20 lg:pt-52 lg:pb-24 px-4 md:px-8"
           >
             <div className="w-full max-w-7xl mx-auto h-full">
               <ProjectCard {...project} index={i} />

@@ -184,7 +184,7 @@ function Home() {
       <main
         id="home-slides"
         ref={slidesRef}
-        className="h-screen overflow-y-auto snap-y snap-mandatory overscroll-y-contain [&>section]:min-h-screen"
+        className="h-screen overflow-y-auto snap-y snap-mandatory overscroll-y-contain [&>section]:h-screen"
       >
         <Hero />
         <Work />

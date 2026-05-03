@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from '../context/ThemeContext'
 import { useSpotifyPlayer, SC_PLAYLIST_URL } from '../context/SpotifyPlayerContext'
 
-export default function RecordPlayer() {
+export default function RecordPlayer({ compact = false }) {
   const { night, sunset } = useTheme()
   const { playing, playerReady, trackInfo, toggle } = useSpotifyPlayer()
 
@@ -49,9 +49,19 @@ export default function RecordPlayer() {
       ? '1px solid rgba(255,120,50,0.18)'
       : '1px solid rgba(120,113,108,0.12)'
 
+  const containerSizeClass = compact
+    ? 'w-full max-w-[220px] sm:max-w-[250px] lg:max-w-[300px] xl:max-w-[340px]'
+    : 'w-[90vw] xs:w-[340px] max-w-[340px]'
+
+  const platterSizeClass = compact
+    ? 'relative w-full aspect-square max-w-[220px] sm:max-w-[250px] lg:max-w-[300px] xl:max-w-[340px] mx-auto'
+    : 'relative w-[220px] h-[220px] xs:w-[260px] xs:h-[260px] sm:w-[300px] sm:h-[300px] mx-auto'
+
+  const metaTopClass = compact ? 'mt-7 sm:mt-8 lg:mt-10' : 'mt-10 sm:mt-11'
+
   return (
-    <div className="flex flex-col items-center select-none w-[90vw] xs:w-[340px] max-w-[340px]">
-      <div className="relative w-[220px] h-[220px] xs:w-[260px] xs:h-[260px] sm:w-[300px] sm:h-[300px] mx-auto">
+    <div className={`flex flex-col items-center select-none ${containerSizeClass}`}>
+      <div className={platterSizeClass}>
 
         {/* Handwriting Note & Arrow Layer */}
         <svg
@@ -309,14 +319,14 @@ export default function RecordPlayer() {
         </svg>
       </div>
 
-      <div className="mt-10 sm:mt-11 w-full text-center px-3">
+      <div className={`${metaTopClass} w-full text-center px-2 sm:px-3`}>
         <div className="text-[10px] font-semibold uppercase tracking-[0.2em]" style={{ color: spotifyMetaColor }}>
           Now Playing
         </div>
-        <div className="mt-1 text-base font-semibold tracking-tight truncate" style={{ color: trackTitleColor }}>
+        <div className="mt-1 text-[13px] sm:text-base font-semibold tracking-tight truncate" style={{ color: trackTitleColor }}>
           {trackInfo?.title || 'Unknown Track'}
         </div>
-        <div className="mt-0.5 text-xs uppercase tracking-[0.08em] truncate" style={{ color: spotifyMetaColor }}>
+        <div className="mt-0.5 text-[10px] sm:text-xs uppercase tracking-[0.08em] truncate" style={{ color: spotifyMetaColor }}>
           {trackInfo?.artist || 'Unknown Artist'}
         </div>
       </div>
