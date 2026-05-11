@@ -114,7 +114,7 @@ export default function EmberCaseStudy() {
                 ))}
               </motion.div>
             </motion.div>
-            <motion.img src={emberImg} alt="Ember Fitness app screens" initial={{ opacity: 0, y: 48, scale: 0.94 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.35, duration: 1, ease: [0.22, 1, 0.36, 1] }} className="w-full object-contain drop-shadow-2xl max-h-[50vh] md:max-h-none" />
+            <motion.img src={emberImg} alt="Ember Fitness app screens" initial={{ opacity: 0, y: 48, scale: 0.94 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.35, duration: 1, ease: [0.22, 1, 0.36, 1] }} className="w-full object-contain drop-shadow-2xl max-h-[40vh] md:max-h-none" />
           </div>
           <motion.div className="hidden md:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.4, duration: 0.6 }}>
             <p className="text-[9px] font-semibold tracking-[0.25em] uppercase" style={{ color: '#c0aa90' }}>Scroll</p>
@@ -153,7 +153,7 @@ export default function EmberCaseStudy() {
               <motion.p variants={up} className="text-base font-light leading-relaxed" style={{ color: '#7a5a3a' }}>The home screen surfaces today's workout clearly, so users can start training immediately.</motion.p>
             </motion.div>
             <motion.div initial="hidden" whileInView="show" viewport={VP} variants={fromRight} className="flex justify-center">
-              <img src={emberHome} alt="Home Screen" className="w-auto object-contain max-h-[45vh] md:max-h-[75vh] drop-shadow-2xl rounded-[40px]" />
+              <img src={emberHome} alt="Home Screen" className="w-auto object-contain max-h-[40vh] md:max-h-[75vh] drop-shadow-2xl rounded-[40px]" />
             </motion.div>
           </div>
         </section>
@@ -162,7 +162,7 @@ export default function EmberCaseStudy() {
         <section id="stats" className="overflow-hidden px-6 md:px-16 pt-16 pb-12 md:h-screen md:flex md:items-center md:justify-center md:py-0 snap-start snap-always" style={{ background: '#fdf8f3' }}>
           <div className="max-w-5xl w-full mx-auto grid md:grid-cols-2 gap-8 md:gap-16 items-center">
             <motion.div initial="hidden" whileInView="show" viewport={VP} variants={fromLeft} className="flex justify-center order-last md:order-first">
-              <img src={emberStats} alt="Stats View" className="w-auto object-contain max-h-[45vh] md:max-h-[75vh] drop-shadow-2xl rounded-[40px]" />
+              <img src={emberStats} alt="Stats View" className="w-auto object-contain max-h-[40vh] md:max-h-[75vh] drop-shadow-2xl rounded-[40px]" />
             </motion.div>
             <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={VP}>
               <SlideLabel>Core Experience · 02</SlideLabel>
@@ -182,7 +182,7 @@ export default function EmberCaseStudy() {
               <motion.p variants={up} className="text-sm font-bold tracking-widest uppercase" style={{ color: '#c0622a' }}>Highlight: Squats</motion.p>
             </motion.div>
             <motion.div initial="hidden" whileInView="show" viewport={VP} variants={fromRight} className="flex justify-center">
-              <img src={emberSquats} alt="Squats Rep Counting" className="w-auto object-contain max-h-[45vh] md:max-h-[75vh] drop-shadow-2xl rounded-[40px]" />
+              <img src={emberSquats} alt="Squats Rep Counting" className="w-auto object-contain max-h-[40vh] md:max-h-[75vh] drop-shadow-2xl rounded-[40px]" />
             </motion.div>
           </div>
         </section>
@@ -191,7 +191,7 @@ export default function EmberCaseStudy() {
         <section id="form" className="overflow-hidden px-6 md:px-16 pt-16 pb-12 md:h-screen md:flex md:items-center md:justify-center md:py-0 snap-start snap-always" style={{ background: '#fdf8f3' }}>
           <div className="max-w-5xl w-full mx-auto grid md:grid-cols-2 gap-8 md:gap-16 items-center">
             <motion.div initial="hidden" whileInView="show" viewport={VP} variants={fromLeft} className="flex justify-center order-last md:order-first">
-              <img src={emberPushups} alt="Pushups Form Analysis" className="w-auto object-contain max-h-[45vh] md:max-h-[75vh] drop-shadow-2xl rounded-[40px]" />
+              <img src={emberPushups} alt="Pushups Form Analysis" className="w-auto object-contain max-h-[40vh] md:max-h-[75vh] drop-shadow-2xl rounded-[40px]" />
             </motion.div>
             <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={VP}>
               <SlideLabel>Core Tech · 02</SlideLabel>
@@ -211,7 +211,7 @@ export default function EmberCaseStudy() {
               <motion.p variants={up} className="text-base font-light leading-relaxed" style={{ color: '#7a5a3a' }}>Onboarding sets goals and training cadence quickly so the app can generate a realistic starting plan.</motion.p>
             </motion.div>
             <motion.div initial="hidden" whileInView="show" viewport={VP} variants={fromRight} className="flex justify-center">
-              <img src={emberOnboarding} alt="Onboarding Flow" className="w-auto object-contain max-h-[45vh] md:max-h-[75vh] drop-shadow-2xl rounded-[40px]" />
+              <img src={emberOnboarding} alt="Onboarding Flow" className="w-auto object-contain max-h-[40vh] md:max-h-[75vh] drop-shadow-2xl rounded-[40px]" />
             </motion.div>
           </div>
         </section>
@@ -228,7 +228,7 @@ export default function EmberCaseStudy() {
 
               <motion.div variants={up} className="flex justify-center">
                 {/* Refined Mobile Device Frame */}
-                <div className="relative mx-auto" style={{ width: 'min(82vw, 340px)' }}>
+                <div className="relative mx-auto" style={{ width: 'min(55vw, 340px)' }}>
                   {/* Outer Device Frame (Titanium/Metal look) */}
                   <div
                     style={{

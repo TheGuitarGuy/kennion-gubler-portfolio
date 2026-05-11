@@ -293,7 +293,7 @@ function ShoreSanderlings() {
   ]
 
   return (
-    <div className="absolute top-0 left-0 w-full h-[100svh] pointer-events-none overflow-hidden">
+    <div className="hidden md:block absolute top-0 left-0 w-full h-[100svh] pointer-events-none overflow-hidden">
       <TideWave flockTrigger={flockTrigger} />
       {birds.map((bird, i) => <ShoreSanderling key={i} {...bird} flockTrigger={flockTrigger} />)}
     </div>
@@ -359,7 +359,7 @@ function NightJellies() {
     { left: '72%', bottom: '6rem', scale: 0.38, delay: 9, driftRange: 50 },
     { left: '90%', bottom: '4rem', scale: 0.50, delay: 12, driftRange: 75 }
   ]
-  return <div className="absolute top-0 left-0 w-full h-[100svh] pointer-events-none z-[3] overflow-hidden">{jellies.map((j, i) => <Jellyfish key={i} {...j} />)}</div>
+  return <div className="hidden md:block absolute top-0 left-0 w-full h-[100svh] pointer-events-none z-[3] overflow-hidden">{jellies.map((j, i) => <Jellyfish key={i} {...j} />)}</div>
 }
 
 export default function Hero() {
@@ -401,10 +401,10 @@ export default function Hero() {
               </motion.div>
             </motion.div>
 
-            <motion.div initial={{ opacity: 0, y: 16, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.65, delay: 0.2, ease: [0.22, 1, 0.36, 1] }} className="flex justify-end items-start sm:items-center">
+            <motion.div initial={{ opacity: 0, y: 16, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.65, delay: 0.2, ease: [0.22, 1, 0.36, 1] }} className="hidden md:flex justify-end items-center">
               <div className="relative">
                 <div className="absolute -inset-16 -z-10 opacity-60 blur-3xl pointer-events-none transition-all duration-700" style={{ background: night ? 'radial-gradient(ellipse at center, rgba(0,200,255,0.15) 0%, rgba(0,100,200,0.08) 45%, transparent 70%)' : sunset ? 'radial-gradient(ellipse at center, rgba(255,100,30,0.26) 0%, rgba(180,30,80,0.13) 45%, transparent 70%)' : 'radial-gradient(ellipse at center, rgba(249,115,22,0.22) 0%, rgba(220,38,38,0.12) 45%, transparent 70%)' }} />
-                <div className="relative mt-0 flex justify-center w-full">
+                <div className="relative mt-0 flex justify-center w-full min-[1025px]:scale-[1.28] min-[1025px]:origin-right">
                   <RecordPlayer compact />
                 </div>
               </div>

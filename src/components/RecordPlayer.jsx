@@ -50,11 +50,11 @@ export default function RecordPlayer({ compact = false }) {
       : '1px solid rgba(120,113,108,0.12)'
 
   const containerSizeClass = compact
-    ? 'w-full max-w-[220px] sm:max-w-[250px] lg:max-w-[300px] xl:max-w-[340px]'
+    ? 'w-full max-w-[220px] sm:max-w-[250px] lg:max-w-[300px] min-[1025px]:max-w-[390px] xl:max-w-[430px]'
     : 'w-[90vw] xs:w-[340px] max-w-[340px]'
 
   const platterSizeClass = compact
-    ? 'relative w-full aspect-square max-w-[220px] sm:max-w-[250px] lg:max-w-[300px] xl:max-w-[340px] mx-auto'
+    ? 'relative w-full aspect-square max-w-[220px] sm:max-w-[250px] lg:max-w-[300px] min-[1025px]:max-w-[390px] xl:max-w-[430px] mx-auto'
     : 'relative w-[220px] h-[220px] xs:w-[260px] xs:h-[260px] sm:w-[300px] sm:h-[300px] mx-auto'
 
   const metaTopClass = compact ? 'mt-7 sm:mt-8 lg:mt-10' : 'mt-10 sm:mt-11'

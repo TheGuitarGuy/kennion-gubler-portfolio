@@ -47,14 +47,12 @@ function TimeClock() {
   }, [])
 
   const parts = new Intl.DateTimeFormat('en-US', {
-    timeZone: 'America/Los_Angeles',
     hour: 'numeric', minute: '2-digit',
-    hour12: true, timeZoneName: 'short',
+    hour12: true,
   }).formatToParts(time)
 
   const hm     = `${parts.find(p => p.type === 'hour').value}:${parts.find(p => p.type === 'minute').value}`
   const period = parts.find(p => p.type === 'dayPeriod')?.value  ?? ''
-  const tz     = parts.find(p => p.type === 'timeZoneName')?.value ?? 'PT'
 
   const pillBg     = night ? 'rgba(6,13,26,0.75)'     : sunset ? 'rgba(26,8,48,0.75)'     : 'rgba(253,248,242,0.82)'
   const pillBorder = night ? 'rgba(0,200,255,0.14)'   : sunset ? 'rgba(255,120,50,0.18)'  : 'rgba(120,113,108,0.14)'
@@ -62,7 +60,7 @@ function TimeClock() {
 
   return (
     <div
-      className="fixed top-4 right-5 z-[55] hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full select-none pointer-events-none tabular-nums"
+      className="hidden min-[1250px]:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full select-none tabular-nums"
       style={{
         background: pillBg,
         border: `1px solid ${pillBorder}`,
@@ -73,7 +71,6 @@ function TimeClock() {
     >
       <span className="text-[13px] font-semibold tracking-[0.06em]">{hm}</span>
       <span className="text-[9px] font-medium opacity-70 tracking-[0.08em]">{period}</span>
-      <span className="text-[9px] font-medium opacity-45 tracking-[0.06em]">{tz}</span>
     </div>
   )
 }
@@ -128,6 +125,7 @@ export default function Nav() {
                 {label}
               </a>
             ))}
+            <TimeClock />
             <a
               href={resumeUrl}
               target="_blank"
@@ -249,7 +247,6 @@ export default function Nav() {
         )}
       </AnimatePresence>
 
-      <TimeClock />
     </>
   )
 }
