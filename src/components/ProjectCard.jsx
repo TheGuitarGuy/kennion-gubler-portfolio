@@ -1,14 +1,12 @@
-import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import MacbookFrame from './MacbookFrame'
 
 import driftwoodTexture from '../../images/wood_grain.jpg'
 
-// "Clean Engraving" style using your custom BookletCordel font
 const engravedTextStyle = {
   fontFamily: '"BookletCordel", "Booklet Cordel", serif',
-  color: '#150a04', // Deepened text color for maximum contrast
+  color: '#150a04',
   opacity: 1,
   textShadow: `
     0 1px 1px rgba(255, 255, 255, 0.9),
@@ -102,7 +100,9 @@ function DriftwoodFrame({ index, children }) {
   const currentRadius = irregularOvals[index % irregularOvals.length];
 
   return (
-    <div className="relative w-full h-full transition-transform duration-500">
+    // 'isolation: isolate' saves Safari from compositing the mix-blend-mode 
+    // against the entire page, resolving the visual layer drops.
+    <div className="relative w-full h-full transition-transform duration-500" style={{ isolation: 'isolate' }}>
 
       <style>{`
         .driftwood-shape-${index} {
@@ -115,8 +115,6 @@ function DriftwoodFrame({ index, children }) {
         }
       `}</style>
 
-      {/* Keep full-safe bounds on small screens, then gradually widen on large screens
-          so the surfboard silhouette can breathe when space is available. */}
       <div
         className={`absolute z-0 left-0 right-0 xl:-left-[2.5%] xl:-right-[2.5%] 2xl:-left-[7%] 2xl:-right-[7%] driftwood-shape-${index}`}
         style={{
@@ -129,7 +127,8 @@ function DriftwoodFrame({ index, children }) {
         <div
           className={`relative overflow-hidden w-full h-full driftwood-shape-${index}`}
           style={{
-            boxShadow: 'inset 0 6px 12px rgba(255,255,255,0.5), inset 0 -6px 16px rgba(0,0,0,0.3)'
+            boxShadow: 'inset 0 6px 12px rgba(255,255,255,0.5), inset 0 -6px 16px rgba(0,0,0,0.3)',
+            WebkitMaskImage: '-webkit-radial-gradient(white, black)' // Fixes Safari border-radius clipping bugs
           }}
         >
           <img
@@ -169,40 +168,22 @@ export default function ProjectCard({
   macbook = false,
   index: cardIndex = 0,
 }) {
-  const ref = useRef(null)
   const detailText = description || subtitle
-
-  // Playing the animation only once prevents the Intersection Observer from 
-  // repeatedly triggering and glitching if the user scrolls back and forth at the boundary.
-  const isInView = useInView(ref, { once: true, margin: '-10% 0px -10% 0px' })
-
-  const isEven = cardIndex % 2 === 0
-  const tideInitial = {
-    opacity: 0,
-    y: 60,
-  }
-
-  const tideAnimate = isInView ? {
-    opacity: 1,
-    y: 0,
-  } : tideInitial
 
   return (
     <motion.article
-      ref={ref}
-      animate={tideAnimate}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: false, amount: 0.05 }}
       transition={{ duration: 1.2, ease: 'easeOut' }}
       className="relative w-full h-full max-w-[1120px] xl:max-w-[1180px] 2xl:max-w-[1240px] mx-auto px-2 sm:px-4 lg:px-6"
-      style={{ willChange: 'transform, opacity' }}
     >
       <DriftwoodFrame index={cardIndex}>
-        {/* Inner safe-area container keeps all content away from wood edges */}
         <div className="relative z-10 h-full w-full px-5 sm:px-10 lg:px-16 py-6 sm:py-10 lg:py-16 flex items-center justify-center">
           <div className="w-full sm:origin-center sm:w-[110%] sm:h-[110%] sm:scale-[0.9] lg:w-full lg:h-full lg:scale-100 flex flex-col justify-center">
             <div
               className="relative z-10 flex flex-col justify-center sm:grid sm:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:grid-cols-[minmax(0,1.12fr)_minmax(0,0.88fr)] xl:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] gap-4 sm:gap-6 lg:gap-10 group h-auto sm:h-full mx-auto max-w-[98%] lg:max-w-[92%] px-2 sm:px-4 lg:px-6 py-4 sm:py-8 lg:py-10"
             >
-              {/* Left — Content */}
               <div className="relative z-10 flex flex-col justify-center h-auto sm:h-full px-2 py-2 sm:px-6 sm:py-6 lg:px-8 lg:py-8 min-w-0 max-w-[44rem] max-h-full order-2 sm:order-1 flex-none">
                 <p className="text-[12px] sm:text-[16px] font-black tracking-[0.20em] sm:tracking-[0.24em] uppercase mb-1 sm:mb-5" style={engravedTextStyle}>
                   {String(cardIndex + 1).padStart(2, '0')}
@@ -257,18 +238,19 @@ export default function ProjectCard({
                 </div>
               </div>
 
-              {/* Right — Image / Mockups */}
               <div
                 className={`relative z-10 flex items-center justify-center min-h-0 sm:min-h-[300px] h-auto sm:h-full min-w-0 ${!image ? 'gap-3 sm:gap-6' : ''} order-1 sm:order-2 mb-3 sm:mb-0 shrink-0`}
               >
                 {image ? (
                   <motion.div
                     className="w-full max-w-[240px] sm:max-w-none mx-auto"
-                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-                    transition={{ delay: 0.2, duration: 1.2, ease: 'easeOut' }}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: false, amount: 0.05 }}
+                    transition={{ delay: 0.2, duration: 1.1, ease: 'easeOut' }}
                   >
                     {macbook ? (
-                      <MacbookFrame src={image} alt={title} compact isInView={isInView} />
+                      <MacbookFrame src={image} alt={title} compact isInView={true} />
                     ) : (
                       <img src={image} alt={title} className="w-full object-contain max-h-[22svh] sm:max-h-[380px] drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)] mx-auto" />
                     )}
@@ -277,8 +259,10 @@ export default function ProjectCard({
                   mockups.map((m, i) => (
                     <motion.div
                       key={i}
-                      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                      transition={{ delay: 0.2 + i * 0.15, duration: 1.0, ease: 'easeOut' }}
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      viewport={{ once: false, amount: 0.05 }}
+                      transition={{ delay: 0.2 + i * 0.1, duration: 1.1, ease: 'easeOut' }}
                       style={{ marginTop: i % 2 === 1 ? '2rem' : '0' }}
                     >
                       <MockupPlaceholder label={m.label} accent={m.accent} />

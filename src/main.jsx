@@ -7,6 +7,15 @@ import { CaseStudyProgressProvider } from './context/CaseStudyProgressContext.js
 import App from './App.jsx'
 import './index.css'
 
+history.scrollRestoration = 'manual'
+
+// On reload while on a case-study page, silently rewrite the URL to /
+// before React Router initialises so the homepage always renders on refresh.
+const _navType = performance.getEntriesByType('navigation')[0]?.type
+if (_navType === 'reload' && window.location.pathname !== '/') {
+  history.replaceState(null, '', '/')
+}
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter basename={import.meta.env.BASE_URL}>
     <ThemeProvider>

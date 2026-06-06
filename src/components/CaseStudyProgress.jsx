@@ -4,6 +4,14 @@ import { useCaseStudyProgress, CASE_STUDY_SLUGS } from '../context/CaseStudyProg
 import { useTheme } from '../context/ThemeContext'
 import realOneImg from '../../images/youre_a_real_one.png'
 
+const TOOLTIP_LABELS = {
+  'askcr-bfm': 'AskCR — Buy for Me',
+  'buy-for-me': 'Buy for Me',
+  'chatgpt': 'ChatGPT Redesign',
+  'ember': 'Ember',
+  'pod': 'Pod',
+}
+
 // Horizontal layout — equal-width cells so track math is exact
 const N = CASE_STUDY_SLUGS.length
 const INSET_PCT = 100 / (2 * N)          // center of first/last cell = 10%
@@ -144,6 +152,7 @@ export default function CaseStudyProgress({ activeSlug, showTracker = true }) {
   const c = useColors()
 
   const [showReward, setShowReward] = useState(false)
+  const [hoveredSlug, setHoveredSlug] = useState(null)
   const triggeredRef = useRef(false)
 
   useEffect(() => {
@@ -195,22 +204,81 @@ export default function CaseStudyProgress({ activeSlug, showTracker = true }) {
                 const isVisited = visited.has(slug)
                 const isFilled = i <= activeIndex
                 const emphasized = isActive || isFilled
+                const isHovered = hoveredSlug === slug
+
+                const statusLabel = isActive
+                  ? 'You are here'
+                  : isVisited
+                    ? 'Visited'
+                    : 'Not yet visited'
 
                 return (
-                  <div key={slug} className="flex flex-col items-center" style={{ flex: '1 1 0%' }}>
+                  <div
+                    key={slug}
+                    className="flex flex-col items-center"
+                    style={{ flex: '1 1 0%', position: 'relative' }}
+                    onMouseEnter={() => setHoveredSlug(slug)}
+                    onMouseLeave={() => setHoveredSlug(null)}
+                  >
+                    {/* Tooltip */}
+                    <AnimatePresence>
+                      {isHovered && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 4, scale: 0.92 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 4, scale: 0.92 }}
+                          transition={{ duration: 0.18, ease: 'easeOut' }}
+                          className="absolute z-50 flex flex-col items-center gap-0.5 pointer-events-none"
+                          style={{
+                            bottom: 'calc(100% + 10px)',
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            whiteSpace: 'nowrap',
+                          }}
+                        >
+                          <div
+                            className="px-2.5 py-1.5 rounded-lg text-center"
+                            style={{
+                              background: c.cardBg,
+                              border: `1px solid ${c.cardBorder}`,
+                              boxShadow: `0 4px 16px rgba(0,0,0,0.22), 0 0 12px ${c.accent}18`,
+                            }}
+                          >
+                            <p className="text-[9px] font-black uppercase tracking-wider" style={{ color: c.accent }}>
+                              {TOOLTIP_LABELS[slug]}
+                            </p>
+                            <p className="text-[8px] font-semibold mt-0.5" style={{ color: c.modalText, opacity: 0.6 }}>
+                              {statusLabel}
+                            </p>
+                          </div>
+                          {/* Arrow */}
+                          <div
+                            style={{
+                              width: 0,
+                              height: 0,
+                              borderLeft: '5px solid transparent',
+                              borderRight: '5px solid transparent',
+                              borderTop: `5px solid ${c.cardBorder}`,
+                            }}
+                          />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+
                     {/* Dot with optional visited badge */}
-                    <div className="relative">
+                    <div className="relative" style={{ cursor: 'default' }}>
                       <motion.div
                         className="rounded-full"
                         animate={{
                           width: isActive ? 14 : 10,
                           height: isActive ? 14 : 10,
                           opacity: emphasized ? 1 : 0.38,
+                          scale: isHovered ? 1.25 : 1,
                         }}
                         transition={{ duration: 0.35 }}
                         style={{
                           background: emphasized ? c.accent : c.emptyBorder,
-                          boxShadow: isActive ? `0 0 10px ${c.accent}` : 'none',
+                          boxShadow: isActive ? `0 0 10px ${c.accent}` : isHovered ? `0 0 8px ${c.accent}88` : 'none',
                         }}
                       />
                       {isVisited && !isActive && (

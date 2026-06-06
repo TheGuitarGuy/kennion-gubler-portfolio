@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from '../context/ThemeContext'
 import sanderlingLogoColor from '../../images/sanderling_studios_color.png'
@@ -78,13 +79,25 @@ function TimeClock() {
 export default function Nav() {
   const { night, sunset, mode, toggle } = useTheme()
   const [menuOpen, setMenuOpen] = useState(false)
+  const navigate = useNavigate()
+  const location = useLocation()
   const resumeUrl = `${import.meta.env.BASE_URL}Kennion_Gubler_Resume_2026.pdf`
 
   const navLinks = [
-    { label: 'Home', href: '#' },
-    { label: 'Case Studies', href: '#work' },
-    { label: 'About', href: '#about' },
+    { label: 'Home',         sectionId: 'home-hero' },
+    { label: 'Case Studies', sectionId: 'work'      },
+    { label: 'About',        sectionId: 'about'     },
   ]
+
+  const scrollToSection = (e, sectionId) => {
+    e.preventDefault()
+    setMenuOpen(false)
+    if (location.pathname === '/') {
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    } else {
+      navigate('/', { state: { navScrollTo: sectionId } })
+    }
+  }
 
   return (
     <>
@@ -102,7 +115,8 @@ export default function Nav() {
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           {/* Logo */}
           <a
-            href="#"
+            href="/"
+            onClick={e => scrollToSection(e, 'home-hero')}
             className="flex items-center transition-colors hover:opacity-80"
             style={{ color: night ? '#60e0ff' : sunset ? '#ffaa55' : '#1c1917' }}
           >
@@ -115,10 +129,11 @@ export default function Nav() {
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map(({ label, href }) => (
+            {navLinks.map(({ label, sectionId }) => (
               <a
                 key={label}
-                href={href}
+                href={`/#${sectionId}`}
+                onClick={e => scrollToSection(e, sectionId)}
                 className="text-sm font-medium tracking-wide transition-colors"
                 style={{ color: night ? 'rgba(180,210,240,0.7)' : sunset ? 'rgba(255,200,150,0.75)' : '#78716c' }}
               >
@@ -204,11 +219,11 @@ export default function Nav() {
             }}
           >
             <div className="px-6 py-7 flex flex-col gap-5">
-              {navLinks.map(({ label, href }) => (
+              {navLinks.map(({ label, sectionId }) => (
                 <a
                   key={label}
-                  href={href}
-                  onClick={() => setMenuOpen(false)}
+                  href={`/#${sectionId}`}
+                  onClick={e => scrollToSection(e, sectionId)}
                   className="text-base font-medium tracking-wide transition-colors"
                   style={{ color: night ? 'rgba(180,210,240,0.9)' : sunset ? 'rgba(255,200,150,0.9)' : '#44403c' }}
                 >

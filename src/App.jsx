@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import Work from './components/Work'
+import About from './components/About'
 import Footer from './components/Footer'
 import Birds from './components/Birds'
 import ThemeSlider from './components/ThemeSlider'
@@ -14,6 +15,9 @@ import AskCRCaseStudy from './pages/AskCRCaseStudy'
 import ChatGPTCaseStudy from './pages/ChatGPTCaseStudy'
 import { useSpotifyPlayer } from './context/SpotifyPlayerContext'
 import { useTheme } from './context/ThemeContext'
+import IntroAnimation from './components/animations/j'
+
+let introHasPlayed = false
 
 function MiniPlayer() {
   const { playing, playerReady, trackInfo, toggle, nextTrack, prevTrack } = useSpotifyPlayer()
@@ -153,6 +157,15 @@ function Home() {
   const location = useLocation()
   const didScrollOnMount = useRef(false)
   const slidesRef = useRef(null)
+  const [introSeen, setIntroSeen] = useState(() => introHasPlayed)
+
+  // Reset to top before first paint — both the inner scroll container and the window
+  useLayoutEffect(() => {
+    if (!location.state?.fromCaseStudy) {
+      window.scrollTo(0, 0)
+      if (slidesRef.current) slidesRef.current.scrollTop = 0
+    }
+  }, [])
 
   useEffect(() => {
     if (didScrollOnMount.current) return
@@ -162,6 +175,11 @@ function Home() {
       const targetId = targetSlug ? `card-${targetSlug}` : 'work'
       requestAnimationFrame(() => {
         const el = document.getElementById(targetId) || document.getElementById('work')
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      })
+    } else if (location.state?.navScrollTo) {
+      requestAnimationFrame(() => {
+        const el = document.getElementById(location.state.navScrollTo)
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
       })
     } else {
@@ -178,6 +196,12 @@ function Home() {
 
   return (
     <div className="min-h-screen">
+      {!introSeen && (
+        <IntroAnimation onComplete={() => {
+          introHasPlayed = true
+          setIntroSeen(true)
+        }} />
+      )}
       <ThemeSlider />
       <Birds />
       <Nav />
@@ -188,9 +212,7 @@ function Home() {
       >
         <Hero />
         <Work />
-        <section className="snap-start snap-always">
-          <Footer />
-        </section>
+        <About />
       </main>
     </div>
   )

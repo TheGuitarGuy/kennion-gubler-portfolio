@@ -64,8 +64,9 @@ export default function ThemeSlider() {
     night:  '0 0 10px rgba(0,200,255,0.7), 0 2px 6px rgba(0,0,0,0.5)',
   }[mode]
 
-  // Knob y-offset from bottom=5 position (sun ~88px, horizon ~50px, moon ~12px from top of 100px pill)
-  const knobY = { day: 0, sunset: -38, night: -76 }[mode]
+  // bottom:5 + y puts knob center at (16 + |y|)px from bottom.
+  // Max safe y keeps knob top (bottom + |y| + 22) ≤ 94px (inside 6px top padding).
+  const knobY = { day: 0, sunset: -34, night: -67 }[mode]
 
   const moonColor  = mode === 'night'  ? '#60e0ff'              : mode === 'sunset' ? 'rgba(150,80,200,0.5)' : 'rgba(180,100,20,0.35)'
   const horizColor = mode === 'sunset' ? '#ffaa55'              : mode === 'day'    ? 'rgba(180,100,20,0.35)' : 'rgba(80,140,200,0.35)'
@@ -103,7 +104,7 @@ export default function ThemeSlider() {
         {/* Sliding knob */}
         <motion.div
           animate={{ y: knobY }}
-          transition={{ type: 'spring', stiffness: 420, damping: 34 }}
+          transition={{ type: 'spring', stiffness: 320, damping: 44 }}
           className="absolute rounded-full"
           style={{
             width: 22,

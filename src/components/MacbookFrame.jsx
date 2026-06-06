@@ -11,7 +11,8 @@ export default function MacbookFrame({ src, alt, style, compact = false, isInVie
   const baseHeight = compact ? '16px' : '20px'
 
   return (
-    <div style={{ width: '100%', perspective: '1500px', filter: 'drop-shadow(0 30px 50px rgba(15,23,42,0.24)) drop-shadow(0 12px 20px rgba(15,23,42,0.16))', ...style }}>
+    // Fix: Removed filter: drop-shadow which causes Chrome flashing when scrolling a 3D transformed child
+    <div style={{ width: '100%', perspective: '1500px', ...style }}>
       <motion.div 
         initial={{ rotateX: -90 }}
         animate={{ rotateX: isInView ? 0 : -90 }}
@@ -22,7 +23,7 @@ export default function MacbookFrame({ src, alt, style, compact = false, isInVie
           padding: `${bezelTop} ${bezelSide} ${bezelBottom}`,
           background: 'linear-gradient(180deg, #101114 0%, #040506 28%, #000000 100%)',
           border: '1px solid rgba(255,255,255,0.1)',
-          boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -2px 8px rgba(0,0,0,0.6)',
+          boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -2px 8px rgba(0,0,0,0.6), 0 30px 50px rgba(15,23,42,0.4)',
           transformOrigin: 'bottom center',
           transformStyle: 'preserve-3d',
         }}
@@ -100,7 +101,7 @@ export default function MacbookFrame({ src, alt, style, compact = false, isInVie
         borderRadius: `0 0 ${compact ? '10px' : '12px'} ${compact ? '10px' : '12px'}`,
         position: 'relative',
         background: 'linear-gradient(180deg, #cfd4da 0%, #c2c7ce 32%, #adb4bc 72%, #989fa8 100%)',
-        boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.7), 0 8px 12px rgba(15,23,42,0.12)',
+        boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.7), 0 8px 12px rgba(15,23,42,0.2)',
       }}>
         <div style={{
           position: 'absolute', top: 0, left: 0, right: 0,

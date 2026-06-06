@@ -1,3 +1,5 @@
+import { useState, useRef, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { motion } from 'framer-motion'
 import ProjectCard from './ProjectCard'
 import CaseStudyProgress from './CaseStudyProgress'
@@ -160,12 +162,22 @@ function ShellGlyph({ kind, fill, stroke }) {
   }
 }
 
-function ShellBadge({ slug, collected }) {
+function ShellBadge({ slug, collected, title }) {
   const badge = SHELL_BADGE_STYLES[slug]
+  const [tooltipPos, setTooltipPos] = useState(null)
+  const ref = useRef(null)
   if (!badge) return null
+
+  const handleMouseEnter = () => {
+    if (ref.current) {
+      const r = ref.current.getBoundingClientRect()
+      setTooltipPos({ x: r.left + r.width / 2, y: r.bottom })
+    }
+  }
 
   return (
     <div
+      ref={ref}
       className="relative w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center shrink-0 transition-all duration-300"
       style={{
         background: collected
@@ -173,11 +185,15 @@ function ShellBadge({ slug, collected }) {
           : 'radial-gradient(circle at 30% 25%, rgba(209,213,219,0.55) 0%, rgba(113,113,122,0.4) 100%)',
         border: `1px solid ${collected ? badge.rim : 'rgba(120,113,108,0.35)'}`,
         boxShadow: collected
-          ? `0 10px 22px ${badge.glow}, inset 0 1px 1px rgba(255,255,255,0.45)`
+          ? `0 10px 22px ${badge.glow}, inset 0 1px 1px rgba(255,255,255,0.45)${tooltipPos ? `, 0 0 14px ${badge.glow}` : ''}`
           : 'inset 0 1px 1px rgba(255,255,255,0.2)',
-        opacity: collected ? 1 : 0.52,
+        opacity: collected ? 1 : tooltipPos ? 0.7 : 0.52,
+        transform: tooltipPos ? 'scale(1.15)' : 'scale(1)',
+        cursor: 'default',
       }}
       aria-label={`${slug} shell badge`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={() => setTooltipPos(null)}
     >
       <span
         className="absolute inset-0 rounded-full pointer-events-none"
@@ -190,6 +206,34 @@ function ShellBadge({ slug, collected }) {
           stroke={collected ? badge.stroke : 'rgba(24,24,27,0.3)'}
         />
       </svg>
+
+      {tooltipPos && createPortal(
+        <div
+          className="pointer-events-none flex flex-col items-center"
+          style={{
+            position: 'fixed',
+            left: tooltipPos.x,
+            top: tooltipPos.y + 8,
+            transform: 'translateX(-50%)',
+            zIndex: 9999,
+            whiteSpace: 'nowrap',
+          }}
+        >
+          <div style={{ width: 0, height: 0, borderLeft: '5px solid transparent', borderRight: '5px solid transparent', borderBottom: '5px solid rgba(20,20,28,0.97)' }} />
+          <div
+            className="px-2.5 py-1.5 rounded-lg text-center"
+            style={{ background: 'rgba(20,20,28,0.97)', border: '1px solid rgba(255,255,255,0.12)', boxShadow: '0 4px 16px rgba(0,0,0,0.4)' }}
+          >
+            <p className="text-[9px] font-black uppercase tracking-wider" style={{ color: collected ? badge.rim : 'rgba(200,200,210,0.7)' }}>
+              {title}
+            </p>
+            <p className="text-[8px] font-semibold mt-0.5" style={{ color: collected ? 'rgba(120,220,150,0.9)' : 'rgba(180,180,190,0.55)' }}>
+              {collected ? 'Explored ✓' : 'Not yet explored'}
+            </p>
+          </div>
+        </div>,
+        document.body
+      )}
     </div>
   )
 }
@@ -197,6 +241,15 @@ function ShellBadge({ slug, collected }) {
 export default function Work() {
   const { mode } = useTheme()
   const { visited } = useCaseStudyProgress()
+
+  useEffect(() => {
+    const srcs = [crChatGptImg, buyForMeImg, askcr_bfm, emberImg, podImg]
+    srcs.forEach(src => {
+      const img = new Image()
+      img.src = src
+      img.decode().catch(() => {})
+    })
+  }, [])
 
   const getOverlayColor = () => {
     switch (mode) {
@@ -226,7 +279,7 @@ export default function Work() {
         }
       default:
         return {
-          panel: 'rgba(24, 24, 27, 0.95)', // Dark contrast for light mode
+          panel: 'rgba(24, 24, 27, 0.95)',
           border: '#f59e0b',
           text: '#ffffff',
           accent: '#fcd34d',
@@ -243,22 +296,26 @@ export default function Work() {
       <div id="work" className="relative">
         <CaseStudyProgress activeSlug={CASE_STUDY_SLUGS[0]} showTracker={false} />
 
-        {/* Shared water background — fills all cards */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src={waterBg}
-            alt=""
-            className="w-full h-full object-cover"
-            style={{ filter: 'grayscale(0.3) contrast(1.1)' }}
-          />
-          <div
-            className="absolute inset-0 transition-colors duration-1000 ease-in-out"
-            style={{ backgroundColor: getOverlayColor() }}
-          />
+        {/* Fix: Replace the scrolling <img> tag with a sticky background div.
+          This solves memory blowouts on fast scrolls.
+        */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <div className="sticky top-0 w-full h-[100svh] overflow-hidden">
+            <div
+               className="w-full h-full bg-cover bg-center"
+               style={{
+                 backgroundImage: `url(${waterBg})`,
+                 filter: 'grayscale(0.3) contrast(1.1)'
+               }}
+            />
+            <div
+              className="absolute inset-0 transition-colors duration-1000 ease-in-out"
+              style={{ backgroundColor: getOverlayColor() }}
+            />
+          </div>
           <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg-color)] via-transparent to-[var(--bg-color)] opacity-95 transition-colors duration-1000" />
         </div>
 
-        {/* Adjusted top padding to pull it up slightly on desktop */}
         <div className="sticky top-[4.25rem] md:top-20 z-[45] flex justify-center px-1 sm:px-2 pointer-events-none mt-2">
           <div className="flex flex-col items-center pointer-events-auto scale-[0.82] sm:scale-90 md:scale-100 origin-top">
             <motion.div
@@ -268,7 +325,7 @@ export default function Work() {
                 type: "spring",
                 stiffness: 100,
                 damping: 15,
-                delay: 0.6 // Slides in gracefully shortly after page load
+                delay: 0.6
               }}
               className="flex items-center gap-2.5 sm:gap-3 md:gap-4 px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 md:py-2.5 rounded-full"
               style={{
@@ -290,19 +347,22 @@ export default function Work() {
               <div className="w-[2px] h-7 sm:h-8 md:h-10 opacity-60 rounded-full" style={{ background: rewardBanner.border }} />
 
               <div className="flex items-center gap-1.5 sm:gap-2 md:gap-2.5" aria-label={`${collectedShells} of ${CASE_STUDY_SLUGS.length} shells collected`}>
-                {CASE_STUDY_SLUGS.map((slug, shellIndex) => (
-                  <ShellBadge
-                    key={slug}
-                    slug={slug}
-                    collected={shellIndex < collectedShells}
-                  />
-                ))}
+                {CASE_STUDY_SLUGS.map((slug, shellIndex) => {
+                  const project = projects.find(p => p.slug === slug)
+                  return (
+                    <ShellBadge
+                      key={slug}
+                      slug={slug}
+                      collected={visited.has(slug)}
+                      title={project?.title ?? slug}
+                    />
+                  )
+                })}
               </div>
             </motion.div>
           </div>
         </div>
 
-        {/* Each card is a full-viewport snap stop in the main page scroll. Increased pt on md/lg to clear the badge. */}
         {projects.map((project, i) => (
           <div
             key={project.slug}
